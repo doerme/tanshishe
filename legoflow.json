@@ -1,0 +1,1 @@
+{"version":"0.0.65","type":"Mobile","assets":"","es6":"true","webp":"false","alias":{"zepto":"./src/js/lego-lib/zepto/zepto.min.js"},"global":{"$":"zepto","zepto":"zepto"}}
