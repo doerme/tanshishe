@@ -13,10 +13,14 @@ body{
 	height: 100%;
 }
 
-.main-canvas{
+.main-canvas,.bg-canvas{
 	position: absolute;
 	width: 750px;
 	height: 750px;
+}
+
+.bg-canvas{
+	background: url('../img/map.png') repeat;
 }
 
 .ui-wrap{

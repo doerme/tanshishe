@@ -3,7 +3,7 @@ export default {
 	cdTopOffset: 0,
 	cdTouchStart: function(event){
 		var touch = event.touches[0];
-		console.log(touch);
+		//console.log(touch);
 		var startY = touch.pageY;
 		var startX = touch.pageX;
 		this.cdLeftOffset = startX-$(this).offset().left;
@@ -25,15 +25,13 @@ export default {
 		var rsX = endX;
 		var rsY = endY;
 
-		
 		/*两点之间的距离*/
 		var distance = Math.sqrt(Math.pow((roundX-rsX),2) + Math.pow((roundY-rsY),2))
 		
-
 		var anX = endX;
 		var anY = endY;
 		/*触点在圆心之外*/
-		console.log(distance, roundR, rsX ,rsY);
+		//console.log(distance, roundR, rsX ,rsY);
 		if(distance > roundR){
 			/*第一象限*/
 			if(rsX > roundX && rsY < roundY){
@@ -54,13 +52,35 @@ export default {
 			if(rsX > roundX && rsY > roundY){
 				anX = roundX + (rsX - roundX) * 100 / distance; 
 				anY = roundY + (rsY - roundY) * 100 / distance;
-			}
-				
+			}		
+		}
+
+		/*控制逻辑*/
+		if(rsX > roundX && rsY < roundY){
+			material.mine.vx = material.mine.v * (rsX - roundX) * 100 / distance;
+			material.mine.vy = material.mine.v * (rsY - roundY) * 100 / distance;
+		}
+		/*第二象限*/
+		if(rsX < roundX && rsY < roundY){
+			material.mine.vx = -material.mine.v * (roundX - rsX) * 100 / distance;
+			material.mine.vy = material.mine.v * (rsY - roundY) * 100 / distance;
+		}
+		/*第三象限*/
+		if(rsX < roundX && rsY > roundY){
+			material.mine.vx = -material.mine.v * (roundX - rsX) * 100 / distance;
+			material.mine.vy = material.mine.v * (rsY - roundY) * 100 / distance;
+		}
+		/*第四象限*/
+		if(rsX > roundX && rsY > roundY){
+			material.mine.vx = material.mine.v * (rsX - roundX) * 100 / distance;
+			material.mine.vy = material.mine.v * (rsY - roundY) * 100 / distance;
 		}
 
 		$('#cd-main').css({"left": anX - showRoundR ,"top": anY - showRoundR}).removeClass('hide');;
 	},
 	cdTouchEnd: function(event){
+		material.mine.vx = 0;
+		material.mine.vy = 0;
 		$('#cd-main').addClass('hide');
 	},
 	cdTouchCancel: function(event){
