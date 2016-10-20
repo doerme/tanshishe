@@ -10,8 +10,10 @@ export default {
 	/*自身*/
 	mine: {
 		type: 2,
-		radius: 20,
+		radius: 40,
 		color: '#F00',
+		yoffset: 0,
+		xoffset: 0,
 		x: 375,
 		y: 375,
 		v: 1,

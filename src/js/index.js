@@ -21,7 +21,7 @@ window.requestAnimFrame = (function(){
 
 /*全局画布对象*/
 window.material = codeMaterial;
-var gameCanvas = $("#main-canvas");
+window.gameCanvas = $("#main-canvas");
 var ctx = gameCanvas.get(0).getContext("2d");
 var lastRun;
 
