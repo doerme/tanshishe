@@ -36,6 +36,30 @@ body{
 		left: 50px;
 		bottom: 100px;
 	}
+	.ctrl-skill{
+		position: absolute;
+		width: 200px;
+		height: 200px;
+		background: url('../img/bomb.png') no-repeat center center;
+		background-size: 100% auto;
+		border-radius: 50%;
+		right: 50px;
+		bottom: 100px;
+	}
+	.ctrl-skill-num{
+		position: absolute;
+		width: 50px;
+		height: 50px;
+		right: 50px;
+		bottom: 100px;
+		text-align: center;
+		line-height: 50px;
+		border-radius: 50%;
+		background: #fb9b9b;
+		font-size: 40px;
+		color: #000;
+		font-weight: bold;
+	}
 	.cd-main{
 		position: absolute;
 		width: 100px;
@@ -44,6 +68,5 @@ body{
 		border-radius: 50%;
 		left: -100px;
 		top: -100px;
-
 	}
 }

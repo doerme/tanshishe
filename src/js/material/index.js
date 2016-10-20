@@ -1,4 +1,5 @@
 import mine from './mine.js';
+import bomb from './bomb.js';
 
 export default {
 	/*地图*/
@@ -21,5 +22,13 @@ export default {
 		vy: 0,
 		walked: 0,
 		lastactiontime: 0,
+		havebomb: 0,
 	},
+	/*炸弹资源*/
+	bomb: [
+		new bomb(50, 50, 1, 40),
+		new bomb(150, 150, 1, 40),
+	],
+	/*炸弹*/
+	realbomb: [],
 }

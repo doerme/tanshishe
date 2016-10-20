@@ -3,6 +3,7 @@ import tool from './lib/tool.js';
 import uitouch from './lib/uitouch.js'; /*UI方向盘*/
 import canvas from './lib/canvas.js'; /*绘画方法*/
 import codeMaterial from './material/index.js'; /*游戏对象*/
+import bomb from './material/bomb.js';
 
 /*默认画贞方法*/
 window.requestAnimFrame = (function(){
@@ -42,10 +43,28 @@ App.prototype = {
 		this.playCanvas(0);
 	},
 	bindEvent: function(){
+		/*摇杆事件*/
 		$('#ctrl-direction').get(0).addEventListener("touchstart", uitouch.cdTouchStart, false);
 		$('#ctrl-direction').get(0).addEventListener("touchmove", uitouch.cdTouchMove, false);
 		$('#ctrl-direction').get(0).addEventListener("touchend", uitouch.cdTouchEnd, false);
 		$('#ctrl-direction').get(0).addEventListener("touchcancel", uitouch.cdTouchCancel, false);
+
+		/*放炸弹*/
+		$('#ctrl-skill').on('touchend', function(){
+			if(material.mine.havebomb > 0){
+				material.mine.havebomb --;
+				material.realbomb.push(new bomb(material.mine.x, material.mine.y, 1, 40))
+			}
+
+			if(material.mine.havebomb > 0){
+				$('#ctrl-skill').removeClass('hide');
+                $('#ctrl-skill-num').removeClass('hide').html(material.mine.havebomb);
+			}else{
+				$('#ctrl-skill,#ctrl-skill-num').addClass('hide');
+			}
+
+		})
+
 	},
 	playCanvas: function(timeStamp){
 		if(!lastRun) {
