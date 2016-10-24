@@ -8,15 +8,6 @@ background-repeat: no-repeat;
 
 }
 
-%bomb.png{
-	width: 4rem;
-	height: 4.01rem;
-	background-image: url('../img/bomb.png');
-	background-size: contain;
-background-repeat: no-repeat;
-
-}
-
 %fire.png{
 	width: 4rem;
 	height: 4.01rem;
@@ -26,10 +17,10 @@ background-repeat: no-repeat;
 
 }
 
-%map.png{
-	width: 2.12rem;
-	height: 1.5rem;
-	background-image: url('../img/map.png');
+%bomb.png{
+	width: 4rem;
+	height: 4.01rem;
+	background-image: url('../img/bomb.png');
 	background-size: contain;
 background-repeat: no-repeat;
 
@@ -39,6 +30,15 @@ background-repeat: no-repeat;
 	width: 2.45rem;
 	height: 2.67rem;
 	background-image: url('../img/mine.png');
+	background-size: contain;
+background-repeat: no-repeat;
+
+}
+
+%map.png{
+	width: 2.12rem;
+	height: 1.5rem;
+	background-image: url('../img/map.png');
 	background-size: contain;
 background-repeat: no-repeat;
 

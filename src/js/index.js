@@ -53,7 +53,7 @@ App.prototype = {
 		$('#ctrl-skill').on('touchend', function(){
 			if(material.mine.havebomb > 0){
 				material.mine.havebomb --;
-				material.realbomb.push(new bomb(material.mine.x, material.mine.y, 1, 40))
+				material.realbomb.push(new bomb(material.mine.x, material.mine.y, 1, 40, 5000, new Date() * 1));
 			}
 
 			if(material.mine.havebomb > 0){

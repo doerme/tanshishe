@@ -1,12 +1,12 @@
-var bombImg = document.getElementById("bomb-image");
+var fireImg = document.getElementById("fire-image");
 
-export default class Bomb{
+export default class Fire{
 	constructor(x, y, state, radius, lasttime, settime) {
 		this.x = x;
 		this.y = y;
 		this.state = state;
 		this.radius = radius;
-		this.src = bombImg;
+		this.src = fireImg;
 		this.lasttime = lasttime;
 		this.settime = settime;
 	}

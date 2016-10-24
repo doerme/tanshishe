@@ -1,9 +1,12 @@
-import canvasfun from './canvasfun.js'
+import canvasfun from './canvasfun.js';
+import bomb from '../material/bomb.js';
+import fire from '../material/fire.js';
 
 export default {
 	pumpkinImg: document.getElementById("pumpkin-image"),
         fireImg: document.getElementById("fire-image"),
-	drawMine: function(ctx, lastRun){
+        explosionImg: document.getElementById("big-fire-image"),
+        drawMine: function(ctx, lastRun){
         	if(material.mine.lastactiontime == 0 && lastRun == 0){
         		return;
         	}
@@ -54,7 +57,7 @@ export default {
 
                 //console.log(material.mine.walked, material.mine.yoffset, parseInt(material.mine.walked) % 50 > 25);
                 var pumpkinImgRadius = material.mine.radius * 3;
-        		ctx.fillStyle = material.mine.color;
+                ctx.fillStyle = material.mine.color;
                 ctx.beginPath();
                 //ctx.arc(material.mine.x, material.mine.y,material.mine.radius, 0, Math.PI * 2, true);
                 ctx.drawImage(this.pumpkinImg, material.mine.x - pumpkinImgRadius/2, material.mine.y - pumpkinImgRadius/2 - 10 + material.mine.yoffset, pumpkinImgRadius, pumpkinImgRadius);
@@ -62,7 +65,7 @@ export default {
                 ctx.fill();
                 canvasfun.paramEllipse(ctx, material.mine.x, material.mine.y + 43, 20 + material.mine.yoffset, 5);
                 material.mine.lastactiontime = lastRun;
-	},
+        },
         /*画炸弹资源*/
         drawBomb: function(ctx, lastRun){
                 //console.log(material.bomb);
@@ -97,6 +100,17 @@ export default {
         drawRealBomb: function(ctx, lastRun){
                 //console.log(material.bomb);
                 for(var n in material.realbomb){
+                        if(lastRun - material.realbomb[n].settime > material.realbomb[n].lasttime){
+                                console.log('real bomb');
+                                
+                                material.bomb.push(new bomb(10 + parseInt(Math.random()*700), 10 + parseInt(Math.random()*700), 1, 40));
+                                this.explosion(material.realbomb[n]);
+                                material.realbomb.splice(n, 1);
+                                continue;
+                        }
+                        ctx.font = "bold 24px Microsoft Yahei";
+                        ctx.fillStyle = "#F00";
+                        ctx.fillText(material.realbomb[n].lasttime - (lastRun - material.realbomb[n].settime), material.realbomb[n].x - material.realbomb[n].radius*1.5, material.realbomb[n].y - material.realbomb[n].radius*1.5);
                         ctx.beginPath();
                         ctx.drawImage(material.realbomb[n].src, material.realbomb[n].x - material.realbomb[n].radius*3/2, material.realbomb[n].y - material.realbomb[n].radius*3/2, material.realbomb[n].radius*3, material.realbomb[n].radius*3);
                         ctx.drawImage(this.fireImg, material.realbomb[n].x - material.realbomb[n].radius*2.5, material.realbomb[n].y - material.realbomb[n].radius*4.5, 250 + (Math.random()*50), 250 + (Math.random()*50));  
@@ -104,12 +118,39 @@ export default {
                         ctx.stroke();
                 }
         },
-	animate: function(ctx, lastRun){
+        /*要爆炸的火焰*/
+        drawFire: function(ctx, lastRun){
+                for(var n in material.fire){
+                        if(lastRun - material.fire[n].settime > material.fire[n].lasttime){
+                                material.fire.splice(n, 1);
+                                continue;
+                        }
+                        ctx.beginPath();
+                        ctx.arc(material.fire[n].x, material.fire[n].y,material.fire[n].radius, 0, Math.PI * 2, true);
+                        ctx.drawImage(this.explosionImg, material.fire[n].x - material.fire[n].radius, material.fire[n].y - material.fire[n].radius, material.fire[n].radius + (Math.random()*20), material.fire[n].radius + (Math.random()*20));  
+                        ctx.closePath();
+                        ctx.stroke();
+                }
+
+        },
+        /*爆炸*/
+        explosion: function(bombobj){
+                /*left*/
+                material.fire.push(new fire(bombobj.x - bombobj.radius, bombobj.y + 2 * bombobj.radius , 1, 20, 1000, new Date() * 1));
+                /*right*/
+                material.fire.push(new fire(bombobj.x + 2 * bombobj.radius, bombobj.y + 2 * bombobj.radius, 1, 20, 1000, new Date() * 1));
+                /*top*/
+                material.fire.push(new fire(bombobj.x + bombobj.radius, bombobj.y , 1, 20, 1000, new Date() * 1));
+                /*bottom*/
+                material.fire.push(new fire(bombobj.x + bombobj.radius, bombobj.y + 3 * bombobj.radius, 1, 20, 1000, new Date() * 1));
+        },
+        animate: function(ctx, lastRun){
 		//console.log(lastRun);
 		this.drawMine(ctx, lastRun);
                 this.drawBomb(ctx, lastRun);
                 this.drawRealBomb(ctx, lastRun);
+                this.drawFire(ctx, lastRun);
                 this.mineCrashBomb();
-	}
+        }
 
 }

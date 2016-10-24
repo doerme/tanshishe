@@ -1,5 +1,6 @@
 import mine from './mine.js';
 import bomb from './bomb.js';
+import fire from './bomb.js';
 
 export default {
 	/*地图*/
@@ -26,9 +27,12 @@ export default {
 	},
 	/*炸弹资源*/
 	bomb: [
-		new bomb(50, 50, 1, 40),
-		new bomb(150, 150, 1, 40),
+		new bomb(10 + parseInt(Math.random()*700), 10 + parseInt(Math.random()*700), 1, 40)
 	],
 	/*炸弹*/
 	realbomb: [],
+	/*火焰*/
+	fire: [
+		
+	]
 }
